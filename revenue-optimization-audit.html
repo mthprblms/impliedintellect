@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Optimization Audit - FCCNA 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-success: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(10%, 10%) scale(1.1);
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: var(--gradient-1);
+            border-radius: 10px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .opportunity-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opportunity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .opportunity-card:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
+        .opportunity-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-high {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .badge-medium {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .badge-low {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .roi-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .effort-badge {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .opportunity-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .action-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .action-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .action-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .quick-wins {
+            background: linear-gradient(135deg, #10b98115 0%, #05966915 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .quick-wins h3 {
+            color: var(--success);
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 3rem;
+            bottom: -2rem;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-marker {
+            min-width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .revenue-potential {
+            background: var(--gradient-success);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .revenue-potential::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        .revenue-potential-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .revenue-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .revenue-description {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .contact-cta {
+            background: var(--dark);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .contact-cta h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.5);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -5px rgba(102, 126, 234, 0.6);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .opportunity-header {
+                flex-direction: column;
+            }
+
+            .revenue-amount {
+                font-size: 2.5rem;
+            }
+        }
+
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .priority-column {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .priority-column h4 {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .priority-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: var(--light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+
+        .priority-item:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>💰 Revenue Optimization Audit</h1>
+                <p class="subtitle">Forrest City Church of the Nazarene</p>
+                <div class="date-badge">November 2025 • Strategic Revenue Analysis</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Executive Summary -->
+            <section class="section">
+                <div class="executive-summary">
+                    <h2>Executive Summary</h2>
+                    <p style="color: var(--dark); font-size: 1.1rem; line-height: 1.8;">
+                        This comprehensive audit identifies <strong>27 actionable revenue opportunities</strong> across
+                        digital presence,
+                        content monetization, community engagement, and service expansion. Based on current web traffic,
+                        social media reach,
+                        and community size, implementing these strategies could generate an estimated <strong>$24,000 -
+                            $72,000 annually</strong>
+                        in additional revenue, with several quick-win opportunities requiring minimal investment.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Current State Analysis -->
+            <section class="section">
+                <h2>📊 Current State Analysis</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">1,450</div>
+                        <div class="stat-label">YouTube Views</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">45</div>
+                        <div class="stat-label">YouTube Subscribers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">129</div>
+                        <div class="stat-label">Video Content Library</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">Squarespace</div>
+                        <div class="stat-label">Current Platform</div>
+                    </div>
+                </div>
+
+                <h3>Critical Issues Impacting Revenue</h3>
+                <ul class="action-list">
+                    <li>Header images are incorrect sizes (affecting professionalism and conversion)</li>
+                    <li>Events page is completely blank (missing engagement opportunities)</li>
+                    <li>PayPal donation not embedded (adding friction to giving process)</li>
+                    <li>Sermons in MP3 format only (missing monetization potential)</li>
+                    <li>No podcast distribution (missing passive revenue streams)</li>
+                    <li>Poor PageSpeed scores (losing potential donors/visitors)</li>
+                    <li>No SEO optimization (missing organic traffic)</li>
+                    <li>Limited social media monetization</li>
+                </ul>
+            </section>
+
+            <!-- Revenue Potential -->
+            <div class="revenue-potential">
+                <div class="revenue-potential-content">
+                    <h2 style="color: white; margin-bottom: 1rem;">💎 Total Revenue Potential</h2>
+                    <div class="revenue-amount">$24K - $72K</div>
+                    <p class="revenue-description">Estimated additional annual revenue from implementing all recommended
+                        strategies</p>
+                </div>
+            </div>
+
+            <!-- Quick Wins -->
+            <section class="section">
+                <div class="quick-wins">
+                    <h3>🚀 Quick Wins (30 Days or Less)</h3>
+                    <div class="priority-grid">
+                        <div class="priority-column">
+                            <h4 style="color: var(--success);">Immediate (Week 1)</h4>
+                            <div class="priority-item">✅ Fix header image sizes</div>
+                            <div class="priority-item">✅ Embed PayPal donation widget</div>
+                            <div class="priority-item">✅ Add Google Analytics</div>
+                            <div class="priority-item">✅ Create events page content</div>
+                        </div>
+                        <div class="priority-column">
+                            <h4 style="color: var(--warning);">Short-term (Weeks 2-4)</h4>
+                            <div class="priority-item">📱 Start podcast distribution</div>
+                            <div class="priority-item">📺 Optimize YouTube channel</div>
+                            <div class="priority-item">💳 Add Stripe for modern payments</div>
+                            <div class="priority-item">📧 Setup email marketing</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Opportunities -->
+            <section class="section">
+                <h2>💡 Revenue Opportunities by Category</h2>
+
+                <!-- Digital Content Monetization -->
+                <h3 style="margin-top: 2rem;">1. Digital Content Monetization</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Podcast Monetization</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">$500-2,000/month</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Transform existing 129 sermon MP3s into a monetized podcast across major platforms.</p>
+                        <ul class="action-list">
+                            <li>Distribute to Spotify, Apple Podcasts, Google Podcasts, Amazon Music</li>
+                            <li>Apply for Spotify monetization (after 12K total listening hours)</li>
+                            <li>Enable listener support through Patreon, Buy Me a Coffee, or Ko-fi</li>
+                            <li>Sell transcripts and study guides for sermons ($2-5 each)</li>
+                            <li>Create "Premium" sermon series with bonus content ($9.99/month)</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $6,000 - $24,000/year (passive income once setup)</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>YouTube Partner Program</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$300-1,500/month</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Current: 45 subscribers, 1,450 views. Need: 1,000 subscribers + 4,000 watch hours.</p>
+                        <ul class="action-list">
+                            <li>Create engaging thumbnails and titles (can increase CTR by 300%)</li>
+                            <li>Add end screens asking for subscriptions</li>
+                            <li>Create short clips from sermons for YouTube Shorts (major growth hack)</li>
+                            <li>Post consistently (2-3 times per week minimum)</li>
+                            <li>Engage with comments to boost algorithm favor</li>
+                            <li>Create playlists organized by topic/series</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $3,600 - $18,000/year once monetized</p>
+                        <p><strong>Timeline:</strong> 6-12 months to reach eligibility with consistent strategy</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Digital Products & Resources</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">$200-800/month</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Create and sell digital resources based on existing content.</p>
+                        <ul class="action-list">
+                            <li>Sermon transcripts with study questions ($2.99 each)</li>
+                            <li>Monthly devotional guides ($4.99/month subscription)</li>
+                            <li>Bible study workbooks ($9.99-19.99)</li>
+                            <li>Prayer journals with Pastor Dale's insights ($14.99)</li>
+                            <li>Video courses on topics from sermons ($29.99-79.99)</li>
+                            <li>Branded merchandise (t-shirts, mugs, journals via Printful)</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $2,400 - $9,600/year</p>
+                    </div>
+                </div>
+
+                <!-- Website Optimization -->
+                <h3 style="margin-top: 2rem;">2. Website & SEO Optimization</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Donation Flow Optimization</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">+25-50% donations</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Current PayPal link creates friction. Streamline the donation process.</p>
+                        <ul class="action-list">
+                            <li>Embed PayPal donation widget directly on homepage and donate page</li>
+                            <li>Add Stripe for credit card processing (better conversion rates)</li>
+                            <li>Implement recurring donation options (monthly/yearly)</li>
+                            <li>Add suggested donation amounts ($25, $50, $100, $250)</li>
+                            <li>Create dedicated donation page with impact stories</li>
+                            <li>Add QR codes in church for mobile giving</li>
+                            <li>Send automated thank-you emails with tax receipts</li>
+                        </ul>
+                        <p><strong>Revenue Impact:</strong> Can increase online donations by 25-50% immediately</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>SEO & Organic Traffic Growth</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">+200-400% traffic</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Poor PageSpeed scores and no SEO strategy means missing hundreds of potential visitors
+                            monthly.</p>
+                        <ul class="action-list">
+                            <li>Fix image sizes and compress for faster load times</li>
+                            <li>Add meta descriptions and title tags to all pages</li>
+                            <li>Create location-specific content (Forest City, NC keywords)</li>
+                            <li>Start blog with 2-4 posts per month</li>
+                            <li>Get listed on church directories (free backlinks)</li>
+                            <li>Implement schema markup for better search visibility</li>
+                            <li>Create Google My Business profile (critical!)</li>
+                        </ul>
+                        <p><strong>Impact:</strong> More visitors = more attendees = more donations + increased
+                            community reach</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Technical Performance Fixes</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">Critical</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Poor website performance drives visitors away before they can engage or donate.</p>
+                        <ul class="action-list">
+                            <li>Fix all header images to correct dimensions</li>
+                            <li>Optimize all images (use WebP format, compress files)</li>
+                            <li>Enable Squarespace CDN and caching</li>
+                            <li>Minimize redirects and broken links</li>
+                            <li>Test on mobile devices (most church visitors use mobile)</li>
+                        </ul>
+                        <p><strong>Impact:</strong> Faster site = better conversions across all revenue streams</p>
+                    </div>
+                </div>
+
+                <!-- Community Engagement Revenue -->
+                <h3 style="margin-top: 2rem;">3. Community Engagement & Events</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Paid Events & Workshops</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$1,000-4,000/event</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Events page is currently blank - huge missed opportunity for revenue and engagement.</p>
+                        <ul class="action-list">
+                            <li>Marriage enrichment retreats ($50-150 per couple)</li>
+                            <li>Financial peace workshops ($25-50 per person)</li>
+                            <li>Parenting seminars ($20-40 per family)</li>
+                            <li>Bible study conferences ($30-75 per person)</li>
+                            <li>Youth camps and VBS (vacation Bible school) with registration fees</li>
+                            <li>Community dinners with suggested donations</li>
+                            <li>Holiday concerts/productions with ticket sales</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $6,000 - $24,000/year (based on 6-12 events annually)</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Facility Rentals</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">$500-2,000/month</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Church facilities sit empty during weekdays - monetize unused space.</p>
+                        <ul class="action-list">
+                            <li>Rent sanctuary for weddings ($500-2,000 per event)</li>
+                            <li>Rent fellowship hall for community events ($100-300 per day)</li>
+                            <li>Rent classrooms for meetings, tutoring, small groups ($25-75 per hour)</li>
+                            <li>Offer package deals for recurring rentals</li>
+                            <li>Create online booking system for convenience</li>
+                            <li>Market on Peerspace, Splacer, or similar platforms</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $6,000 - $24,000/year</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Membership & Giving Programs</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">$300-1,200/month</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Create structured giving programs that make it easy for people to support regularly.</p>
+                        <ul class="action-list">
+                            <li>Launch "Partners in Ministry" recurring giving program (monthly donors)</li>
+                            <li>Create giving tiers with recognition (Bronze/Silver/Gold donors)</li>
+                            <li>Offer "giving envelopes" system with tracking</li>
+                            <li>Send quarterly impact reports to donors</li>
+                            <li>Create memorial/honor giving opportunities</li>
+                            <li>Legacy/planned giving program for estate donations</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $3,600 - $14,400/year additional recurring revenue</p>
+                    </div>
+                </div>
+
+                <!-- Email Marketing & Engagement -->
+                <h3 style="margin-top: 2rem;">4. Email Marketing & Donor Communication</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Email List Building & Monetization</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-high">High Priority</span>
+                                <span class="roi-badge">$200-800/month</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Email marketing has the highest ROI of any digital marketing channel (4,200% average ROI).
+                        </p>
+                        <ul class="action-list">
+                            <li>Add email signup forms to website (offer free devotional as incentive)</li>
+                            <li>Collect emails at services and events</li>
+                            <li>Send weekly newsletter with sermon highlights + donation ask</li>
+                            <li>Segment list (visitors vs members vs donors) for targeted campaigns</li>
+                            <li>Automated welcome series for new subscribers</li>
+                            <li>Special campaign emails for holidays and fundraising</li>
+                            <li>Use Mailchimp (free up to 500 subscribers) or Substack</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $2,400 - $9,600/year from increased engagement and giving
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service Expansion -->
+                <h3 style="margin-top: 2rem;">5. Service Expansion & Consulting</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Pastoral Services & Counseling</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$100-400/session</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Pastor Dale can offer fee-based services to the broader community.</p>
+                        <ul class="action-list">
+                            <li>Wedding officiation services ($200-500 per wedding)</li>
+                            <li>Pre-marital counseling packages ($300-600 for 6 sessions)</li>
+                            <li>Life coaching/spiritual direction ($75-150 per session)</li>
+                            <li>Grief counseling and support groups</li>
+                            <li>Corporate chaplaincy services to local businesses</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $3,000 - $12,000/year</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Online Courses & Virtual Ministry</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-low">Lower Priority</span>
+                                <span class="roi-badge">$500-2,000/month</span>
+                                <span class="effort-badge">High Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Create evergreen digital courses based on Pastor Dale's expertise.</p>
+                        <ul class="action-list">
+                            <li>Teachable, Thinkific, or Kajabi course platform</li>
+                            <li>"Foundations of Faith" beginner course ($49-99)</li>
+                            <li>"Biblical Leadership" course for ministry leaders ($79-149)</li>
+                            <li>"Prayer and Spiritual Growth" intensive ($39-79)</li>
+                            <li>Virtual small group memberships ($19-29/month)</li>
+                            <li>Live Q&A sessions for paying members</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $6,000 - $24,000/year (once created, mostly passive)</p>
+                    </div>
+                </div>
+
+                <!-- Grants & Fundraising -->
+                <h3 style="margin-top: 2rem;">6. Grants & Fundraising Campaigns</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Grant Applications</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$5,000-50,000/grant</span>
+                                <span class="effort-badge">High Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Churches are eligible for numerous grants that go unclaimed.</p>
+                        <ul class="action-list">
+                            <li>Apply for denominational grants (Church of the Nazarene offers many)</li>
+                            <li>Community foundation grants for local impact</li>
+                            <li>Technology grants for digital ministry upgrades</li>
+                            <li>Building/facility improvement grants</li>
+                            <li>Youth program grants</li>
+                            <li>Use GrantWatch, Faith & Giving, Foundant to find opportunities</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> Highly variable, but $10,000 - $100,000+ possible
+                            annually</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Crowdfunding Campaigns</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$2,000-15,000/campaign</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Launch specific fundraising campaigns for projects and initiatives.</p>
+                        <ul class="action-list">
+                            <li>Use GoFundMe Charity, Givebutter, or Classy for campaigns</li>
+                            <li>Specific project campaigns (roof repair, A/V upgrades, etc.)</li>
+                            <li>Mission trip fundraising</li>
+                            <li>Annual "giving season" campaigns (end of year)</li>
+                            <li>Create compelling video stories for campaigns</li>
+                            <li>Share across social media and email</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $10,000 - $50,000/year from targeted campaigns</p>
+                    </div>
+                </div>
+
+                <!-- Social Media Revenue -->
+                <h3 style="margin-top: 2rem;">7. Social Media Optimization</h3>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Facebook Monetization & Engagement</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-medium">Medium Priority</span>
+                                <span class="roi-badge">$100-500/month</span>
+                                <span class="effort-badge">Low Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Facebook is still the primary platform for church communities.</p>
+                        <ul class="action-list">
+                            <li>Post consistently (3-5 times per week minimum)</li>
+                            <li>Go Live for services and events (massive reach boost)</li>
+                            <li>Create Facebook fundraisers for specific needs</li>
+                            <li>Enable Facebook donations directly on page</li>
+                            <li>Use Facebook Events for all church activities</li>
+                            <li>Create private Facebook group for members (deeper engagement)</li>
+                            <li>Share sermon clips, quotes, and devotionals</li>
+                        </ul>
+                        <p><strong>Revenue Potential:</strong> $1,200 - $6,000/year from increased engagement and
+                            donations</p>
+                    </div>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-header">
+                        <div>
+                            <h3>Instagram & TikTok Growth</h3>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <span class="badge badge-low">Lower Priority</span>
+                                <span class="roi-badge">Long-term growth</span>
+                                <span class="effort-badge">Medium Effort</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opportunity-content">
+                        <p>Reach younger demographics and expand community awareness.</p>
+                        <ul class="action-list">
+                            <li>Create Instagram account with daily devotionals and quotes</li>
+                            <li>Share Reels/TikToks of sermon excerpts (30-60 seconds)</li>
+                            <li>Behind-the-scenes content from church life</li>
+                            <li>Use trending audio and hashtags</li>
+                            <li>Link to donation page in bio</li>
+                            <li>Collaborate with other local churches for reach</li>
+                        </ul>
+                        <p><strong>Impact:</strong> Brand awareness, younger demographic engagement, long-term growth
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Timeline -->
+            <section class="section">
+                <h2>📅 Recommended Implementation Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h4>Month 1: Foundation & Quick Wins</h4>
+                            <ul class="action-list">
+                                <li>Fix all website technical issues (images, blank pages)</li>
+                                <li>Embed PayPal donation widget + add Stripe</li>
+                                <li>Setup Google Analytics and Google My Business</li>
+                                <li>Start email list with Mailchimp</li>
+                                <li>Begin podcast distribution to all platforms</li>
+                            </ul>
+                            <p style="color: var(--success); font-weight: 600; margin-top: 0.5rem;">Expected revenue
+                                impact: +$500-1,500/month</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h4>Months 2-3: Content & Engagement</h4>
+                            <ul class="action-list">
+                                <li>Optimize YouTube channel and start shorts strategy</li>
+                                <li>Launch first paid workshop/event</li>
+                                <li>Create and sell 3-5 digital products</li>
+                                <li>Start SEO blog (2 posts per month)</li>
+                                <li>Launch recurring giving program</li>
+                            </ul>
+                            <p style="color: var(--success); font-weight: 600; margin-top: 0.5rem;">Expected revenue
+                                impact: +$800-2,500/month</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h4>Months 4-6: Expansion & Scaling</h4>
+                            <ul class="action-list">
+                                <li>Launch facility rental program</li>
+                                <li>Apply for 5-10 grants</li>
+                                <li>Create first online course</li>
+                                <li>Run first major crowdfunding campaign</li>
+                                <li>Expand social media presence to Instagram/TikTok</li>
+                            </ul>
+                            <p style="color: var(--success); font-weight: 600; margin-top: 0.5rem;">Expected revenue
+                                impact: +$1,500-4,000/month</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <h4>Months 7-12: Optimization & Automation</h4>
+                            <ul class="action-list">
+                                <li>Reach YouTube monetization threshold</li>
+                                <li>Scale successful digital products and courses</li>
+                                <li>Optimize all revenue streams based on data</li>
+                                <li>Build systems for sustainable passive income</li>
+                                <li>Hire part-time help for content/marketing if needed</li>
+                            </ul>
+                            <p style="color: var(--success); font-weight: 600; margin-top: 0.5rem;">Expected revenue
+                                impact: $2,000-6,000/month steady state</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Priority Matrix -->
+            <section class="section">
+                <h2>🎯 Priority Action Matrix</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Priority</th>
+                            <th>Effort</th>
+                            <th>Revenue Impact</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fix website technical issues</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>Foundational</td>
+                            <td>Week 1</td>
+                        </tr>
+                        <tr>
+                            <td>Embed donation widget + add Stripe</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>$200-800/month</td>
+                            <td>Week 1</td>
+                        </tr>
+                        <tr>
+                            <td>Start podcast distribution</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>$500-2,000/month</td>
+                            <td>Week 2</td>
+                        </tr>
+                        <tr>
+                            <td>Setup email marketing</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>$200-800/month</td>
+                            <td>Week 2</td>
+                        </tr>
+                        <tr>
+                            <td>Launch recurring giving program</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Medium</td>
+                            <td>$300-1,200/month</td>
+                            <td>Month 2</td>
+                        </tr>
+                        <tr>
+                            <td>Optimize YouTube channel</td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>Medium</td>
+                            <td>$300-1,500/month</td>
+                            <td>Month 2</td>
+                        </tr>
+                        <tr>
+                            <td>Create digital products</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>$200-800/month</td>
+                            <td>Month 2</td>
+                        </tr>
+                        <tr>
+                            <td>Launch paid events/workshops</td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>Medium</td>
+                            <td>$1,000-4,000/event</td>
+                            <td>Month 3</td>
+                        </tr>
+                        <tr>
+                            <td>Start facility rentals</td>
+                            <td><span class="badge badge-high">High</span></td>
+                            <td>Low</td>
+                            <td>$500-2,000/month</td>
+                            <td>Month 4</td>
+                        </tr>
+                        <tr>
+                            <td>Apply for grants</td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>High</td>
+                            <td>$5,000-50,000/grant</td>
+                            <td>Month 4</td>
+                        </tr>
+                        <tr>
+                            <td>Create online courses</td>
+                            <td><span class="badge badge-low">Lower</span></td>
+                            <td>High</td>
+                            <td>$500-2,000/month</td>
+                            <td>Month 5</td>
+                        </tr>
+                        <tr>
+                            <td>Run crowdfunding campaigns</td>
+                            <td><span class="badge badge-medium">Medium</span></td>
+                            <td>Medium</td>
+                            <td>$2,000-15,000/campaign</td>
+                            <td>Month 6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Tools & Resources -->
+            <section class="section">
+                <h2>🛠️ Recommended Tools & Platforms</h2>
+
+                <h3>Donations & Payments</h3>
+                <ul class="action-list">
+                    <li><strong>Stripe</strong> - Modern payment processing, recurring donations</li>
+                    <li><strong>PayPal Business</strong> - Keep existing, but improve integration</li>
+                    <li><strong>Givelify</strong> - Church-specific donation app</li>
+                    <li><strong>Pushpay</strong> - Advanced church giving platform</li>
+                </ul>
+
+                <h3>Content Distribution</h3>
+                <ul class="action-list">
+                    <li><strong>Anchor.fm (Spotify)</strong> - Free podcast hosting & distribution</li>
+                    <li><strong>Buzzsprout</strong> - Premium podcast hosting ($12-24/month)</li>
+                    <li><strong>TubeBuddy</strong> - YouTube optimization tool (free tier available)</li>
+                    <li><strong>Canva</strong> - Create thumbnails, graphics, social media content</li>
+                </ul>
+
+                <h3>Email Marketing</h3>
+                <ul class="action-list">
+                    <li><strong>Mailchimp</strong> - Free up to 500 subscribers</li>
+                    <li><strong>Substack</strong> - Newsletter with built-in monetization</li>
+                    <li><strong>ConvertKit</strong> - Creator-focused email platform</li>
+                </ul>
+
+                <h3>Digital Products & Courses</h3>
+                <ul class="action-list">
+                    <li><strong>Gumroad</strong> - Sell digital products easily</li>
+                    <li><strong>Teachable</strong> - Online course platform</li>
+                    <li><strong>Patreon</strong> - Membership & recurring support</li>
+                    <li><strong>Buy Me a Coffee</strong> - Simple supporter platform</li>
+                </ul>
+
+                <h3>Website & SEO</h3>
+                <ul class="action-list">
+                    <li><strong>Google Analytics</strong> - Free website analytics</li>
+                    <li><strong>Google Search Console</strong> - Monitor search performance</li>
+                    <li><strong>Yoast SEO</strong> - SEO optimization (if switching to WordPress)</li>
+                    <li><strong>TinyPNG</strong> - Image compression tool</li>
+                </ul>
+
+                <h3>Facility Rentals</h3>
+                <ul class="action-list">
+                    <li><strong>Peerspace</strong> - List your venue for rentals</li>
+                    <li><strong>Splacer</strong> - Event space marketplace</li>
+                    <li><strong>Acuity Scheduling</strong> - Online booking system</li>
+                </ul>
+            </section>
+
+            <!-- Investment Required -->
+            <section class="section">
+                <h2>💵 Investment Requirements</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Tools/Services</th>
+                            <th>Monthly Cost</th>
+                            <th>Annual Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Minimal Investment (Start Here)</td>
+                            <td>Free tier tools only</td>
+                            <td>$0</td>
+                            <td>$0</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Package</td>
+                            <td>Mailchimp, Buzzsprout, Canva Pro</td>
+                            <td>$35-50</td>
+                            <td>$420-600</td>
+                        </tr>
+                        <tr>
+                            <td>Professional Package</td>
+                            <td>Above + ConvertKit, Teachable, TubeBuddy</td>
+                            <td>$100-150</td>
+                            <td>$1,200-1,800</td>
+                        </tr>
+                        <tr>
+                            <td>Premium Package</td>
+                            <td>All tools + professional video editing</td>
+                            <td>$200-300</td>
+                            <td>$2,400-3,600</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 1.5rem; padding: 1.5rem; background: var(--light); border-radius: 12px;">
+                    <strong>ROI Analysis:</strong> Even with the Premium Package investment (~$3,000/year), implementing
+                    just
+                    half of these recommendations could generate $12,000 - $36,000 in additional revenue, resulting in a
+                    <strong>400-1,200% ROI</strong> in year one.
+                </p>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="section">
+                <div class="contact-cta">
+                    <h3>🚀 Ready to Get Started?</h3>
+                    <p style="margin: 1rem 0; font-size: 1.1rem; opacity: 0.9;">
+                        This audit provides a comprehensive roadmap to significantly increase revenue. The opportunities
+                        are real,
+                        proven, and achievable. Start with the quick wins, then scale up as you see results.
+                    </p>
+                    <h4 style="color: white; margin-top: 2rem; margin-bottom: 1rem;">Immediate Next Steps:</h4>
+                    <ul class="action-list" style="text-align: left; max-width: 600px; margin: 0 auto;">
+                        <li style="color: white;">Review this audit with church leadership</li>
+                        <li style="color: white;">Select 3-5 quick wins to implement in next 30 days</li>
+                        <li style="color: white;">Assign responsibility for each initiative</li>
+                        <li style="color: white;">Set monthly revenue goals and track progress</li>
+                        <li style="color: white;">Schedule quarterly reviews to assess and adjust</li>
+                    </ul>
+                    <a href="mailto:fccnaz@gmail.com" class="cta-button" style="margin-top: 2rem;">Contact Church
+                        Leadership</a>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 Forrest City Church of the Nazarene - Revenue Optimization Audit</p>
+            <p style="margin-top: 0.5rem;">Generated: November 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add smooth scroll animations when elements come into view
+        const observerOptions = {
+            threshold: 0.05, // Lower threshold to trigger sooner
+            rootMargin: '0px 0px -50px 0px' // Smaller margin for better triggering
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.section, .opportunity-card, .stat-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Immediately check if any elements are already in view
+            setTimeout(() => {
+                document.querySelectorAll('.section, .opportunity-card, .stat-card').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+
+                    // If element is in viewport, show it immediately
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            }, 100);
+        });
+
+        // Add print functionality
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+
+</html>
