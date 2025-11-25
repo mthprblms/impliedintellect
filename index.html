@@ -191,7 +191,7 @@
         .parallax-image {
             position: fixed;
             top: 10%;
-            left: 5%;
+            left: 2%;
             z-index: 3;
             transition: left 0.1s ease-out;
         }
@@ -1296,7 +1296,176 @@
                     width: 100%;
                 }
             }
+        }
 
+        /* Splash Animation Styles */
+        .splash-layer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1002;
+            /* Above menu overlay */
+            pointer-events: none;
+            filter: blur(20px);
+            /* Smooth transition */
+            animation: splashExpand 0.35s ease-out forwards;
+        }
+
+        @keyframes splashExpand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.8;
+            }
+
+            100% {
+                width: 250vmax;
+                height: 250vmax;
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 2000;
+            /* Ensure it's always on top */
+        }
+
+        .bar {
+            width: 100%;
+            height: 3px;
+            background-color: #00fa00;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+            animation: colorCycle 10s infinite alternate;
+        }
+
+        @keyframes colorCycle {
+            0% {
+                background: rgba(0, 0, 0, 0.95);
+            }
+
+            25% {
+                background: rgba(0, 26, 0, 0.98);
+            }
+
+            /* Dark Green tint */
+            50% {
+                background: rgba(26, 0, 26, 0.98);
+            }
+
+            /* Dark Magenta tint */
+            75% {
+                background: rgba(0, 20, 26, 0.98);
+            }
+
+            /* Dark Cyan tint */
+            100% {
+                background: rgba(26, 25, 0, 0.98);
+            }
+
+            /* Dark Yellow tint */
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-nav-links li {
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active .mobile-nav-links li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu-overlay.active .mobile-nav-links li:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .mobile-menu-overlay.active .mobile-nav-links li:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-menu-overlay.active .mobile-nav-links li:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-menu-overlay.active .mobile-nav-links li:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .mobile-nav-links a {
+            color: #fff;
+            font-size: 2rem;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .mobile-nav-links a:hover {
+            color: #00fa00;
+            text-shadow: 0 0 20px #00fa00;
+        }
+
+        /* Hamburger Animation */
+        .hamburger-menu.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background-color: #fff;
+        }
+
+        .hamburger-menu.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background-color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -1313,8 +1482,22 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </div>
     </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="#home" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="#services" onclick="toggleMobileMenu()">Services</a></li>
+            <li><a href="#about" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="#contact" onclick="toggleMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Bottom Action Buttons -->
     <div class="bottom-actions">
@@ -1352,8 +1535,8 @@
 
         <!-- Parallax Custom Pacman -->
         <div class="parallax-image">
-            <svg width="112.5" height="105" viewBox="0 0 237.25632 222.15074" xmlns="http://www.w3.org/2000/svg"
-                role="img" aria-label="Animated Pacman character">
+            <svg width="30" height="28" viewBox="0 0 237.25632 222.15074" xmlns="http://www.w3.org/2000/svg" role="img"
+                aria-label="Animated Pacman character">
                 <defs>
                     <filter id="pacmanGlow">
                         <feGaussianBlur stdDeviation="4" result="coloredBlur" />
@@ -1453,6 +1636,14 @@
                 <p>Streamline your workflow with bespoke automation solutions and custom software development. We create
                     tailored macros, browser extensions, desktop applications, and API integrations that eliminate
                     repetitive tasks, boost productivity, and solve unique business challenges efficiently.</p>
+            </div>
+
+            <div class="service-card"
+                style="grid-column: 1 / -1; border-color: #fff500; background: linear-gradient(135deg, rgba(255, 245, 0, 0.1), rgba(250, 0, 250, 0.1));">
+                <h3 style="color: #fff500;">🤝 Agency Partnerships & White Label</h3>
+                <p>Are you an agency drowning in overflow work? We provide invisible, senior-level development support.
+                    From clearing backlog tickets to building complex React components, we integrate seamlessly with
+                    your team to help you hit deadlines without the overhead.</p>
             </div>
         </div>
     </section>
@@ -2242,6 +2433,35 @@
         setInterval(createParticle, 150);
         setInterval(createSideParticle, 400);
         setInterval(createDiagonalParticle, 600);
+
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+
+            // Prevent scrolling when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+
+                // Trigger Splash Animation
+                const colors = ['#00fa00', '#fa00fa', '#00cfff'];
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const splash = document.createElement('div');
+                        splash.classList.add('splash-layer');
+                        splash.style.background = colors[i % colors.length];
+                        document.body.appendChild(splash);
+
+                        // Remove after animation
+                        setTimeout(() => splash.remove(), 350);
+                    }, i * 80); // Slightly faster interval for smoother overlap
+                }
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
     </script>
 </body>
 
