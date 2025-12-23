@@ -82,6 +82,7 @@
             --overlay-color: rgba(0, 250, 0, 0.03);
             --hero-bg: radial-gradient(circle at center, #001a00 0%, #000 70%);
             --shadow-glow: 0 0 10px #00fa00;
+            --text-body: #fff;
         }
 
         body.corporate-mode {
@@ -89,7 +90,7 @@
             --text-primary: #1a1a1a;
             --accent-color: #2563eb;
             --accent-secondary: #4f46e5;
-            --highlight-color: #2563eb;
+            --highlight-color: #FA00FA;
             --font-main: 'Inter', system-ui, -apple-system, sans-serif;
             --nav-bg: rgba(255, 255, 255, 0.95);
             --card-bg: #ffffff;
@@ -97,6 +98,7 @@
             --overlay-color: transparent;
             --hero-bg: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
             --shadow-glow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --text-body: #1a1a1a;
         }
 
         /* Toggle Switch Styles */
@@ -294,7 +296,7 @@
         }
 
         .nav-links a:hover {
-            color: #fff500;
+            color: var(--highlight-color);
             text-shadow: 0 0 5px currentColor;
         }
 
@@ -423,8 +425,8 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: #fff500;
-            text-shadow: 0 0 15px #fff500;
+            color: var(--highlight-color);
+            text-shadow: 0 0 15px var(--highlight-color);
         }
 
         /* Services Grid */
@@ -475,7 +477,7 @@
         }
 
         .service-card p {
-            color: #fff;
+            color: var(--text-body);
             line-height: 1.8;
         }
 
@@ -489,14 +491,14 @@
         }
 
         .why-choose h3 {
-            color: #fff500;
+            color: var(--highlight-color);
             font-size: 2rem;
             margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px #fff500;
+            text-shadow: 0 0 10px var(--highlight-color);
         }
 
         .why-choose p {
-            color: #fff;
+            color: var(--text-body);
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 1.5rem;
@@ -707,10 +709,10 @@
 
         .column-left h3,
         .column-right h3 {
-            color: #fff500;
+            color: var(--highlight-color);
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px #fff500;
+            text-shadow: 0 0 10px var(--highlight-color);
         }
 
         .column-left h4,
@@ -723,7 +725,7 @@
 
         .column-left p,
         .column-right p {
-            color: #fff;
+            color: var(--text-body);
             line-height: 1.8;
             margin-bottom: 1.5rem;
         }
@@ -765,7 +767,7 @@
         }
 
         .feature-item p {
-            color: #fff;
+            color: var(--text-body);
             margin: 0;
             font-size: 0.95rem;
         }
@@ -778,7 +780,7 @@
         }
 
         .ai-services-list li {
-            color: #fff;
+            color: var(--text-body);
             margin-bottom: 1rem;
             padding: 0.8rem;
             background: rgba(0, 207, 255, 0.1);
@@ -789,7 +791,7 @@
 
         .ai-services-list li:hover {
             background: rgba(255, 245, 0, 0.1);
-            border-left-color: #fff500;
+            border-left-color: var(--highlight-color);
             transform: translateX(5px);
         }
 
@@ -944,8 +946,8 @@
         .pixel-text {
             font-family: 'Courier New', monospace;
             font-size: 1.2rem;
-            color: #fff500;
-            text-shadow: 2px 2px 0px #000, 0 0 10px #fff500;
+            color: var(--highlight-color);
+            text-shadow: 2px 2px 0px #000, 0 0 10px var(--highlight-color);
             letter-spacing: 2px;
             animation: pixelGlow 2s ease-in-out infinite alternate;
         }
@@ -1028,9 +1030,9 @@
         }
 
         .retro-title {
-            color: #fff500;
+            color: var(--highlight-color);
             font-size: 1.6rem;
-            text-shadow: 2px 2px 0px #000, 0 0 10px #fff500;
+            text-shadow: 2px 2px 0px #000, 0 0 10px var(--highlight-color);
             margin-bottom: 1rem;
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
@@ -1071,7 +1073,7 @@
         }
 
         .retro-service-item:hover {
-            border-color: #fff500;
+            border-color: var(--highlight-color);
             background: rgba(255, 245, 0, 0.1);
             transform: translateX(5px);
             box-shadow: 0 0 15px rgba(255, 245, 0, 0.3);
@@ -1136,9 +1138,9 @@
         }
 
         .achievement-title {
-            color: #fff500;
+            color: var(--highlight-color);
             font-size: 1.1rem;
-            text-shadow: 1px 1px 0px #000, 0 0 5px #fff500;
+            text-shadow: 1px 1px 0px #000, 0 0 5px var(--highlight-color);
             margin-bottom: 0.5rem;
             font-family: 'Courier New', monospace;
         }
@@ -1151,7 +1153,7 @@
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            border: 3px solid #fff500;
+            border: 3px solid var(--highlight-color);
             border-radius: 8px;
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
@@ -1239,11 +1241,11 @@
 
         @keyframes pixelGlow {
             0% {
-                text-shadow: 2px 2px 0px #000, 0 0 10px #fff500;
+                text-shadow: 2px 2px 0px #000, 0 0 10px var(--highlight-color);
             }
 
             100% {
-                text-shadow: 2px 2px 0px #000, 0 0 20px #fff500, 0 0 30px #fff500;
+                text-shadow: 2px 2px 0px #000, 0 0 20px var(--highlight-color), 0 0 30px var(--highlight-color);
             }
         }
 
@@ -1392,7 +1394,7 @@
             }
 
             .dot-yellow {
-                background: #fff500;
+                background: var(--highlight-color);
             }
 
             .dot-green {
@@ -1840,8 +1842,8 @@
             </div>
 
             <div class="service-card"
-                style="grid-column: 1 / -1; border-color: #fff500; background: linear-gradient(135deg, rgba(255, 245, 0, 0.1), rgba(250, 0, 250, 0.1));">
-                <h3 style="color: #fff500;">🤝 Agency Partnerships & White Label</h3>
+                style="grid-column: 1 / -1; border-color: var(--highlight-color); background: linear-gradient(135deg, rgba(255, 245, 0, 0.1), rgba(250, 0, 250, 0.1));">
+                <h3 style="color: var(--highlight-color);">🤝 Agency Partnerships & White Label</h3>
                 <p>Are you an agency drowning in overflow work? We provide invisible, senior-level development support.
                     From clearing backlog tickets to building complex React components, we integrate seamlessly with
                     your team to help you hit deadlines without the overhead.</p>
